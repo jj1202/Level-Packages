@@ -5,7 +5,7 @@ using UnityEngine;
 public class enemyLife_3 : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject enemySpawnManager;
+    //public GameObject enemySpawnManager;
     void Start()
     {
         

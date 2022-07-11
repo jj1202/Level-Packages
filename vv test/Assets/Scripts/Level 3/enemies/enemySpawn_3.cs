@@ -10,13 +10,17 @@ public class enemySpawn_3 : MonoBehaviour
     //public Transform spawnPoint;
 
     public float spawnInterval, difficultyIncreaseInterval;
-    public int maxNoOfEnemies;
+    public int maxNoOfEnemies, totalEnemies;
     public static int currentNoOfEnemies;
+    public GameObject bossEnemy;
 
     private float spawnTime, stageLength, readyForNextDifficultyIncrease;
+    private int enemiesKilled;
         
     float spawnRate;
     float timeElapsed;
+
+    bool enemiesStage;
     
 
     // Start is called before the first frame update
@@ -24,13 +28,15 @@ public class enemySpawn_3 : MonoBehaviour
     {
         spawnRate = 1 / spawnInterval;
         currentNoOfEnemies = 0;
+        enemiesKilled = 0;
+        enemiesStage = true;
         //stageLength = spawnRateIncreaseInterval;
     }
     // Update is called once per frame
     void Update()
     {
 
-       // spawnRate += (1/ 1000) * Time.deltaTime;
+        // spawnRate += (1/ 1000) * Time.deltaTime;
         //print(spawnRate);
 
         timeElapsed += Time.deltaTime;
@@ -42,11 +48,14 @@ public class enemySpawn_3 : MonoBehaviour
         //    print(spawnRate);
 
         //}
-        if (Time.time > readyForNextDifficultyIncrease)
+        if (enemiesStage == true)
         {
-            readyForNextDifficultyIncrease = Time.time + difficultyIncreaseInterval;
-            spawnRate += 0.5f;
-            print(spawnRate);
+            if (Time.time > readyForNextDifficultyIncrease)
+            {
+                readyForNextDifficultyIncrease = Time.time + difficultyIncreaseInterval;
+                spawnRate += 0.5f;
+                print(spawnRate);
+            }
         }
 
         if (Time.time > spawnTime)
@@ -56,6 +65,16 @@ public class enemySpawn_3 : MonoBehaviour
                 Spawn();
                 spawnTime = Time.time + 1/spawnRate;
                 currentNoOfEnemies++;
+                enemiesKilled++;
+                print(enemiesKilled);
+                if (enemiesKilled >= totalEnemies)
+                {
+                    spawnRate = 0;
+                    enemiesStage = false;
+                    bossEnemy.SetActive(true);
+                }
+                    //Time.timeScale = 0;
+
                 //spawnRate++;
             }
             

@@ -52,9 +52,9 @@ public class playerHealth_3 : MonoBehaviour
         {
             //print("gameover");
 
-            //Time.timeScale = 0; //stop gameplay
+            Time.timeScale = 0; //stop gameplay
             //gameoverscreen.SetActive(true);// show game over screen
-            Health = 100;
+            //Health = 100;
         }
         else if (Health > 0)
         {
